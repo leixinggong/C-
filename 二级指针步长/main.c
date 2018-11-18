@@ -7,6 +7,8 @@
 //
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 struct Stu
 {
@@ -16,9 +18,45 @@ struct Stu
     int *score;
 };
 
+enum StuStatus{
+    Alloc_Error = -1,
+    Success,
+    NameErr,
+    SexErr,
+    AgeErr,
+    ScoreErr
+};
+
+int allocWithZone(struct Stu **stu)
+{
+    *stu = (struct Stu *)malloc(sizeof(struct Stu));
+    
+    if (NULL == *stu)  return Alloc_Error;
+    
+    (*stu)->age = (int *)malloc(sizeof(*((*stu)->age)));
+    if ((*stu)->age == NULL) return AgeErr;
+    
+    (*stu)->name = (char *)malloc(sizeof(100));
+    if ((*stu)->name == NULL) return NameErr;
+    
+    (*stu)->sex = (char *)malloc(sizeof(*((*stu)->sex)));
+    if ((*stu)->sex == NULL) return SexErr;
+    
+    (*stu)->score = (int *)malloc(sizeof(*((*stu)->score)));
+    if ((*stu)->score == NULL) return ScoreErr;
+    
+    return Success;
+}
 
 
-int main(int argc, const char * argv[]) {
+int main(int argc, const char * argv[],char **evn)
+{
   
+    while (*evn)
+    {
+        printf("%s \n",*evn++);
+    }
+    
+    
     return 0;
 }
