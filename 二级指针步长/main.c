@@ -57,6 +57,18 @@ int main(int argc, const char * argv[],char **evn)
         printf("%s \n",*evn++);
     }
     
+    struct Stu * stu = NULL;
+    
+    int ret = allocWithZone(&stu);
+    
+    if (Success == ret) { printf("stu error"); }
+    
+    *(stu->age) = 18;
+    strcpy(stu->name, "gongleixing");
+    
+    printf("");
+    
+    
     
     return 0;
 }
